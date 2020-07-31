@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Listen to media query matches in React",
   "main": "dist/use-media-query.js",
+  "types": "types/useMediaQuery.d.ts",
   "files": [
     "dist",
     "types",
@@ -22,6 +23,13 @@
   "author": {
     "name": "Maroun Baydoun",
     "url": "https://www.maroun-baydoun.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:maroun-baydoun/use-media-query.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maroun-baydoun/use-media-query/issues"
   },
   "license": "MIT",
   "devDependencies": {
