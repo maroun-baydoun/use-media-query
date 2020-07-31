@@ -1,5 +1,5 @@
 {
-  "name": "use-media-query",
+  "name": "@maroun-baydoun/use-media-query",
   "version": "0.0.1-beta.0",
   "description": "Listen to media query matches in React",
   "main": "dist/use-media-query.js",
