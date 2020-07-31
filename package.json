@@ -1,0 +1,48 @@
+{
+  "name": "use-media-query",
+  "version": "0.0.0",
+  "description": "Listen to media query matches in React",
+  "main": "dist/use-media-query.js",
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "scripts": {
+    "test": "jest test",
+    "test:watch": "jest test --watch",
+    "build": "webpack --config webpack.config.js",
+    "prettier:check": "prettier --check './{src,test}/**/*.{ts,tsx}'",
+    "prettier:write": "prettier --write './{src,test}/**/*.{ts,tsx}'",
+    "preversion": "npm test",
+    "version": "rm -rf dist && npm run build",
+    "postversion": "git push --tags"
+  },
+  "author": {
+    "name": "Maroun Baydoun",
+    "url": "https://www.maroun-baydoun.com/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/react-hooks": "3.4.1",
+    "@types/jest": "26.0.8",
+    "@types/react": "16.8.0",
+    "@types/react-dom": "16.8.0",
+    "jest": "26.2.2",
+    "prettier": "2.0.5",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-test-renderer": "16.9.0",
+    "ts-jest": "26.1.4",
+    "ts-loader": "8.0.1",
+    "typescript": "3.9.7",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}
