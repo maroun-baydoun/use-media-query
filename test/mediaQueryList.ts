@@ -1,5 +1,5 @@
 export const create = (mediaQuery: string) => {
-  const listeners = {};
+  const listeners: {[event: string]: Function[]} = {};
   return (matches: boolean) => ({
     matches,
     media: mediaQuery,
