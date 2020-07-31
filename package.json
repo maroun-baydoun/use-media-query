@@ -10,6 +10,13 @@
     "README.md",
     "LICENSE.md"
   ],
+  "keywords": [
+    "react",
+    "media-query",
+    "responsive",
+    "hook",
+    "typescript"
+  ],
   "scripts": {
     "test": "jest test",
     "test:watch": "jest test --watch",
