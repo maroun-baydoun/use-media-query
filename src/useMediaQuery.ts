@@ -12,10 +12,18 @@ const useMediaQuery = (mediaQuery: string) => {
   }, []);
 
   useEffect(() => {
-    mediaQueryList.addEventListener("change", onChange);
+    if (mediaQueryList.addEventListener) {
+      mediaQueryList.addEventListener("change", onChange);
+    } else {
+      mediaQueryList.addListener(onChange);
+    }
 
     return () => {
-      mediaQueryList.removeEventListener("change", onChange);
+      if (mediaQueryList.removeEventListener) {
+        mediaQueryList.removeEventListener("change", onChange);
+      } else {
+        mediaQueryList.removeListener(onChange);
+      }
     };
   }, [mediaQueryList, onChange]);
 

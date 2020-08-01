@@ -29,3 +29,7 @@ const MyComponent = () => {
     return matches ? "It matches!" : "No match (yet)";
 }
 ```
+
+#### Browser Compatibility
+
+This library relies on the `window.matchMedia` API. Compatible browsers can be found  [here](https://caniuse.com/#feat=matchmedia "Can I use matchMedia?"). 

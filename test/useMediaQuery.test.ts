@@ -8,10 +8,10 @@ describe("useMediaQuery", () => {
 
   it("returns true when media query matches on mount", () => {
     const mediaQuery = "only screen and (min-width: 1024px)";
-    const mediaQueryList = create(mediaQuery);
+    const mediaQueryList = create(mediaQuery)(true);
 
-    (window.matchMedia as jest.Mock).mockImplementationOnce(() =>
-      mediaQueryList(true)
+    (window.matchMedia as jest.Mock).mockImplementationOnce(
+      () => mediaQueryList
     );
 
     const { result } = renderHook(() => useMediaQuery(mediaQuery));
@@ -21,10 +21,10 @@ describe("useMediaQuery", () => {
 
   it("returns false when media query doesn't match on mount", () => {
     const mediaQuery = "only screen and (min-width: 1024px)";
-    const mediaQueryList = create(mediaQuery);
+    const mediaQueryList = create(mediaQuery)(false);
 
-    (window.matchMedia as jest.Mock).mockImplementationOnce(() =>
-      mediaQueryList(false)
+    (window.matchMedia as jest.Mock).mockImplementationOnce(
+      () => mediaQueryList
     );
 
     const { result } = renderHook(() => useMediaQuery(mediaQuery));
@@ -66,7 +66,7 @@ describe("useMediaQuery", () => {
     expect(result.current).toBe(true);
   });
 
-  it("removes change listener on unmount", () => {
+  it("removes change listener on unmount when removeEventListener is available", () => {
     const mediaQuery = "only screen and (min-width: 1024px)";
     const mediaQueryList = create(mediaQuery)(true);
 
@@ -78,10 +78,28 @@ describe("useMediaQuery", () => {
 
     unmount();
 
-    expect(mediaQueryList.removeEventListener).toBeCalled();
+    expect(mediaQueryList.removeEventListener).toBeCalledWith(
+      "change",
+      expect.any(Function)
+    );
   });
 
-  it("removes change listener when a different media query is used", () => {
+  it("removes change listener on unmount when removeEventListener is unavailable", () => {
+    const mediaQuery = "only screen and (min-width: 1024px)";
+    const mediaQueryList = create(mediaQuery, false)(true);
+
+    (window.matchMedia as jest.Mock).mockImplementationOnce(
+      () => mediaQueryList
+    );
+
+    const { unmount } = renderHook(() => useMediaQuery(mediaQuery));
+
+    unmount();
+
+    expect(mediaQueryList.removeListener).toBeCalledWith(expect.any(Function));
+  });
+
+  it("removes change listener when a different media query is used when addEventListener and removeEventListener are available", () => {
     const mediaQuery1 = "only screen and (min-width: 1024px)";
     const mediaQueryList1 = create(mediaQuery1)(true);
 
@@ -101,7 +119,37 @@ describe("useMediaQuery", () => {
     );
     rerender(mediaQuery2);
 
-    expect(mediaQueryList2.addEventListener).toBeCalled();
-    expect(mediaQueryList1.removeEventListener).toBeCalled();
+    expect(mediaQueryList2.addEventListener).toBeCalledWith(
+      "change",
+      expect.any(Function)
+    );
+    expect(mediaQueryList1.removeEventListener).toBeCalledWith(
+      "change",
+      expect.any(Function)
+    );
+  });
+
+  it("removes change listener when a different media query is used when addEventListener and removeEventListener are unavailable", () => {
+    const mediaQuery1 = "only screen and (min-width: 1024px)";
+    const mediaQueryList1 = create(mediaQuery1, false)(true);
+
+    const mediaQuery2 = "only screen and (max-width: 600px)";
+    const mediaQueryList2 = create(mediaQuery2, false)(true);
+
+    (window.matchMedia as jest.Mock).mockImplementationOnce(
+      () => mediaQueryList1
+    );
+
+    const { rerender } = renderHook((mediaQuery) => useMediaQuery(mediaQuery), {
+      initialProps: mediaQuery1,
+    });
+
+    (window.matchMedia as jest.Mock).mockImplementationOnce(
+      () => mediaQueryList2
+    );
+    rerender(mediaQuery2);
+
+    expect(mediaQueryList2.addListener).toBeCalledWith(expect.any(Function));
+    expect(mediaQueryList1.removeListener).toBeCalledWith(expect.any(Function));
   });
 });
