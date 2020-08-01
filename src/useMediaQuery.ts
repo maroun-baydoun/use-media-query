@@ -1,17 +1,27 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 
 const useMediaQuery = (mediaQuery: string) => {
-  const mediaQueryList = useMemo(() => window.matchMedia(mediaQuery), [
-    mediaQuery,
-  ]);
+  const mediaQueryList = useMemo(() => {
+    if (typeof window === "undefined" || !("matchMedia" in window)) {
+      return;
+    }
 
-  const [matches, setMatches] = useState(mediaQueryList.matches);
+    return window.matchMedia(mediaQuery);
+  }, [mediaQuery]);
+
+  const [matches, setMatches] = useState(
+    mediaQueryList ? mediaQueryList.matches : false
+  );
 
   const onChange = useCallback((event: MediaQueryListEvent) => {
     setMatches(event.matches);
   }, []);
 
   useEffect(() => {
+    if (!mediaQueryList) {
+      return;
+    }
+
     if (mediaQueryList.addEventListener) {
       mediaQueryList.addEventListener("change", onChange);
     } else {

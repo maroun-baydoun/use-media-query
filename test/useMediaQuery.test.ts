@@ -4,7 +4,9 @@ import { create } from "./mediaQueryList";
 import useMediaQuery from "../src/useMediaQuery";
 
 describe("useMediaQuery", () => {
-  window.matchMedia = jest.fn();
+  beforeEach(() => {
+    window.matchMedia = jest.fn();
+  });
 
   it("returns true when media query matches on mount", () => {
     const mediaQuery = "only screen and (min-width: 1024px)";
@@ -151,5 +153,14 @@ describe("useMediaQuery", () => {
 
     expect(mediaQueryList2.addListener).toBeCalledWith(expect.any(Function));
     expect(mediaQueryList1.removeListener).toBeCalledWith(expect.any(Function));
+  });
+
+  it("returns false when window has no matchMedia method", () => {
+    delete window.matchMedia;
+    const mediaQuery = "only screen and (min-width: 1024px)";
+
+    const { result } = renderHook(() => useMediaQuery(mediaQuery));
+
+    expect(result.current).toBe(false);
   });
 });

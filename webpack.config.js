@@ -15,7 +15,8 @@ module.exports = {
     filename: '[name].js',
     library: 'useMediaQuery',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: 'this'
   },
   devtool: 'source-map',
   externals: {
