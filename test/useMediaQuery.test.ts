@@ -101,7 +101,7 @@ describe("useMediaQuery", () => {
     expect(mediaQueryList.removeListener).toBeCalledWith(expect.any(Function));
   });
 
-  it("removes change listener when a different media query is used when addEventListener and removeEventListener are available", () => {
+  it("removes change listener when a different media query is used and removeEventListener is available", () => {
     const mediaQuery1 = "only screen and (min-width: 1024px)";
     const mediaQueryList1 = create(mediaQuery1)(true);
 
@@ -121,17 +121,13 @@ describe("useMediaQuery", () => {
     );
     rerender(mediaQuery2);
 
-    expect(mediaQueryList2.addEventListener).toBeCalledWith(
-      "change",
-      expect.any(Function)
-    );
     expect(mediaQueryList1.removeEventListener).toBeCalledWith(
       "change",
       expect.any(Function)
     );
   });
 
-  it("removes change listener when a different media query is used when addEventListener and removeEventListener are unavailable", () => {
+  it("removes change listener when a different media query is used and removeEventListener is unavailable", () => {
     const mediaQuery1 = "only screen and (min-width: 1024px)";
     const mediaQueryList1 = create(mediaQuery1, false)(true);
 
@@ -151,7 +147,6 @@ describe("useMediaQuery", () => {
     );
     rerender(mediaQuery2);
 
-    expect(mediaQueryList2.addListener).toBeCalledWith(expect.any(Function));
     expect(mediaQueryList1.removeListener).toBeCalledWith(expect.any(Function));
   });
 
