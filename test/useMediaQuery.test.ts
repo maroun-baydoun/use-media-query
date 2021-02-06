@@ -151,7 +151,7 @@ describe("useMediaQuery", () => {
   });
 
   it("returns false when window has no matchMedia method", () => {
-    delete window.matchMedia;
+    delete (window as any).matchMedia;
     const mediaQuery = "only screen and (min-width: 1024px)";
 
     const { result } = renderHook(() => useMediaQuery(mediaQuery));
