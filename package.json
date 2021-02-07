@@ -40,10 +40,18 @@
     "webpack-merge": "5.5.0"
   },
   "dependencies": {
-    "prismjs": "1.23.0"
+    "@maroun-baydoun/use-media-query": "1.0.0",
+    "prismjs": "1.23.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "features": {
-    "react": false,
-    "prismjs": false
+    "react": true,
+    "prismjs": {
+      "languages": [
+        "shell",
+        "jsx"
+      ]
+    }
   }
 }
