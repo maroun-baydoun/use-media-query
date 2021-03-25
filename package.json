@@ -21,8 +21,7 @@
     "test": "jest test",
     "test:watch": "jest test --watch",
     "build": "webpack --config webpack.config.js",
-    "prettier:check": "prettier --check './{src,test}/**/*.{ts,tsx}' './webpack.config.js'",
-    "prettier:write": "prettier --write './{src,test}/**/*.{ts,tsx}' './webpack.config.js'",
+    "format": "prettier --write './{src,test}/**/*.{ts,tsx}' './webpack.config.js'",
     "preversion": "npm test",
     "version": "rm -rf dist && npm run build",
     "postversion": "git push --tags"
@@ -38,11 +37,11 @@
   "bugs": {
     "url": "https://github.com/maroun-baydoun/use-media-query/issues"
   },
-  "homepage": "https://dev.maroun-baydoun.com/use-media-query",
+  "homepage": "https://dev.maroun-baydoun.com/use-media-query/",
   "license": "MIT",
   "devDependencies": {
-    "@testing-library/react-hooks": "5.0.3",
-    "@types/jest": "26.0.20",
+    "@testing-library/react-hooks": "5.1.0",
+    "@types/jest": "26.0.22",
     "@types/react": "16.8.0",
     "@types/react-dom": "16.8.0",
     "clean-webpack-plugin": "3.0.0",
@@ -51,10 +50,10 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-test-renderer": "16.9.0",
-    "ts-jest": "26.5.0",
-    "ts-loader": "8.0.15",
-    "typescript": "4.1.3",
-    "webpack": "5.21.1",
+    "ts-jest": "26.5.4",
+    "ts-loader": "8.0.18",
+    "typescript": "4.2.3",
+    "webpack": "5.28.0",
     "webpack-cli": "4.5.0"
   },
   "peerDependencies": {

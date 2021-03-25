@@ -1,15 +1,15 @@
-const path = require("path");
+const { resolve } = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const PATHS = {
-  src: path.join(__dirname, "./src"),
-  dist: path.join(__dirname, "./dist"),
+  src: resolve(__dirname, "src"),
+  dist: resolve(__dirname, "dist"),
 };
 
 module.exports = {
   mode: "production",
   entry: {
-    "use-media-query": path.join(PATHS.src, "./useMediaQuery.ts"),
+    "use-media-query": resolve(PATHS.src, "useMediaQuery.ts"),
   },
   output: {
     path: PATHS.dist,
@@ -38,7 +38,10 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [path.join(__dirname, "types")],
+      cleanOnceBeforeBuildPatterns: [
+        resolve(__dirname, "types"),
+        resolve(__dirname, "dist"),
+      ],
     }),
-  ]
+  ],
 };
